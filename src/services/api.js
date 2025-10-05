@@ -56,7 +56,19 @@ export async function getAllPeople(search = '') {
 }
 
 export async function getPerson(personId) {
-  return Promise.resolve(null);
+  try {
+    const response = await fetch(`${SWAPI_BASE}/people/${personId}/`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching person:', error);
+    return null;
+  }
 }
 
 export async function getResource(url) {

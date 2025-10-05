@@ -5,7 +5,8 @@ export class HomePage extends LitElement {
   static properties = {
     characters: { type: Array },
     loading: { type: Boolean },
-    searchTerm: { type: String }
+    searchTerm: { type: String },
+    selectedCharacterId: { type: String }
   };
 
   constructor() {
@@ -13,6 +14,7 @@ export class HomePage extends LitElement {
     this.characters = [];
     this.loading = false;
     this.searchTerm = '';
+    this.selectedCharacterId = '';
   }
 
   static styles = css`
@@ -85,7 +87,6 @@ export class HomePage extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-    console.log('HomePage connected');
     await this.loadCharacters();
   }
 
@@ -100,6 +101,15 @@ export class HomePage extends LitElement {
   handleSearch(e) {
     const searchTerm = e.target.value;
     this.loadCharacters(searchTerm);
+  }
+
+  handleCharacterClick(e) {
+    const { characterId } = e.detail;
+    this.selectedCharacterId = characterId;
+  }
+
+  handleProfileClose() {
+    this.selectedCharacterId = '';
   }
 
   render() {
@@ -124,7 +134,7 @@ export class HomePage extends LitElement {
           </div>
         ` : ''}
         
-        <div class="character-list">
+        <div class="character-list" @character-click=${this.handleCharacterClick}>
           ${this.loading ? html`<div class="loading">Loading all characters...</div>` : ''}
           ${!this.loading && this.characters.length === 0 ? html`<div class="loading">No characters found</div>` : ''}
           ${this.characters.map(character => html`
@@ -137,6 +147,13 @@ export class HomePage extends LitElement {
           `)}
         </div>
       </div>
+      
+      ${this.selectedCharacterId ? html`
+        <character-profile 
+          person-id=${this.selectedCharacterId}
+          @profile-close=${this.handleProfileClose}
+        ></character-profile>
+      ` : ''}
     `;
   }
 }
