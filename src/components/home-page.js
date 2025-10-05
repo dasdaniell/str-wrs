@@ -85,14 +85,26 @@ export class HomePage extends LitElement {
     .content {
       flex: 1;
       overflow-y: auto;
-      padding: 20px;
+      display: flex;
+      flex-direction: column;
     }
+
     .character-count {
+      position: sticky;
+      top: 0;
+      background: var(--bg, #0b0f17);
+      padding: 12px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 10;
+      flex-shrink: 0;
       text-align: center;
       color: var(--muted, #9fb0d0);
-      margin-bottom: 20px;
       font-size: 14px;
       font-weight: 500;
+    }
+
+    .character-grid {
+      padding: 20px;
     }
     .character-list {
       display: grid;
@@ -296,10 +308,11 @@ export class HomePage extends LitElement {
                 </div>
               `
             : html`
-                <div
-                  class="character-list"
-                  @character-click=${this.handleCharacterClick}
-                >
+                <div class="character-grid">
+                  <div
+                    class="character-list"
+                    @character-click=${this.handleCharacterClick}
+                  >
                   ${this.loading
                     ? html`
                         <!-- Show skeleton cards while loading first page -->
@@ -335,6 +348,7 @@ export class HomePage extends LitElement {
                         )}
                       `
                     : ''}
+                  </div>
                 </div>
               `}
       </div>

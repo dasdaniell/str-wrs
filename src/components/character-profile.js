@@ -87,8 +87,25 @@ export class CharacterProfile extends LitElement {
     .header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       margin-bottom: 20px;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .profile-avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      background-color: transparent;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
     }
 
     .close-btn {
@@ -218,7 +235,14 @@ export class CharacterProfile extends LitElement {
           : this.character
             ? html`
                 <div class="header">
-                  <h1 class="name">${this.character.name || 'Unknown'}</h1>
+                  <div class="header-content">
+                    <img 
+                      src="/assets/icons/avatar-1.png" 
+                      alt="Character avatar" 
+                      class="profile-avatar"
+                    />
+                    <h1 class="name">${this.character.name || 'Unknown'}</h1>
+                  </div>
                   <button class="close-btn" @click=${this.closePopup}>×</button>
                 </div>
 

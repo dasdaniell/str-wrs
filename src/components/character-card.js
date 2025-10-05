@@ -35,6 +35,9 @@ export class CharacterCard extends LitElement {
       padding: 14px;
       cursor: pointer;
       transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
     .card:hover {
       border-color: var(--accent, #4f8cff);
@@ -56,6 +59,18 @@ export class CharacterCard extends LitElement {
       font-size: 12px;
       font-weight: 500;
       margin-top: 8px;
+    }
+    .content {
+      flex: 1;
+    }
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      background-color: transparent;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
     }
   `;
 
@@ -79,10 +94,17 @@ export class CharacterCard extends LitElement {
   render() {
     return html`
       <div class="card" @click=${this.handleClick}>
-        <div class="name">${this.name}</div>
-        <div class="meta">Gender: ${this.gender || '—'}</div>
-        <div class="meta">Birth year: ${this.birthYear || '—'}</div>
-        <div class="click-hint">Click to view profile</div>
+        <div class="content">
+          <div class="name">${this.name}</div>
+          <div class="meta">Gender: ${this.gender || '—'}</div>
+          <div class="meta">Birth year: ${this.birthYear || '—'}</div>
+          <div class="click-hint">View profile</div>
+        </div>
+        <img 
+          src="/assets/icons/avatar-1.png" 
+          alt="Character avatar" 
+          class="avatar"
+        />
       </div>
     `;
   }

@@ -18,6 +18,12 @@ This is a minimal Vanilla JavaScript project using Lit web components. Data sour
 
 The `start` script runs a simple static server on port 5173.
 
+### Development Commands
+
+- `npm run start` - Start the development server
+- `npm run format` - Format all code with Prettier
+- `npm run format:check` - Check if code is properly formatted
+
 ## Project structure
 
 ```
@@ -39,6 +45,14 @@ The `start` script runs a simple static server on port 5173.
         skeleton-card.js
         skeleton-profile.js
 ```
+
+## Code Formatting
+
+This project uses [Prettier](https://prettier.io/) for consistent code formatting.
+
+- **Configuration**: `.prettierrc` and `.prettierignore`
+- **Format code**: `npm run format`
+- **Check formatting**: `npm run format:check`
 
 ## Notes
 
