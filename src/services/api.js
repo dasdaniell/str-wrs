@@ -71,7 +71,7 @@ export async function getAllPeople(search = '') {
     };
   } catch (error) {
     console.error('Error fetching all people:', error);
-    return { results: [], count: 0, next: null, previous: null };
+    throw error; // Re-throw to trigger error state in component
   }
 }
 
@@ -97,7 +97,7 @@ export async function getFirstPage(search = '') {
     return data;
   } catch (error) {
     console.error('Error fetching first page:', error);
-    return { results: [], count: 0, next: null, previous: null };
+    throw error; // Re-throw to trigger error state in component
   }
 }
 

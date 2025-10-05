@@ -23,6 +23,9 @@ The `start` script runs a simple static server on port 5173.
 ```
 / (root)
   index.html            # entry HTML
+  assets/
+    icons/
+      no-data.svg       # No data state icon
   src/
     main.js             # simple hash router
     services/
