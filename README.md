@@ -1,21 +1,22 @@
-# Star Wars Characters (Vanilla JS + Lit)
+# Profile Searcher (Vanilla JS + Lit)
 
-A minimal Vanilla JavaScript project using Lit web components. Data source: SWAPI.
+Quick start:
+
+```bash
+npm install
+npm run start
+```
+
+Then open http://127.0.0.1:5173 in your browser.
+
+This is a minimal Vanilla JavaScript project using Lit web components. Data source: SWAPI.
 
 - **API**: [`https://swapi.dev/`](https://swapi.dev/)
 - **Components**: home page, character card, character list, character profile
 
-## Quick start
+## Quick start (details)
 
-```bash
-# from the project root
-npm install
-# open index.html via a static server (recommended)
-# for example using npx http-server (optional)
-npx --yes http-server -c-1 -o
-```
-
-Alternatively, open `index.html` directly in your browser, but some features may require serving via HTTP.
+The `start` script runs a simple static server on port 5173.
 
 ## Project structure
 
