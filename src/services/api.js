@@ -21,6 +21,12 @@ export async function getPeople(page = 1, search = '') {
   }
 }
 
+/**
+ * Fetches ALL characters by following pagination links
+ * Used for background loading after first page is displayed
+ * @param {string} search - Optional search term
+ * @returns {Promise<Object>} Complete dataset with all characters
+ */
 export async function getAllPeople(search = '') {
   try {
     let allPeople = [];
@@ -31,6 +37,7 @@ export async function getAllPeople(search = '') {
       nextUrl += `?search=${encodeURIComponent(search)}`;
     }
     
+    // Follow pagination links to get all results
     while (nextUrl) {
       const response = await fetch(nextUrl);
       
@@ -51,6 +58,32 @@ export async function getAllPeople(search = '') {
     };
   } catch (error) {
     console.error('Error fetching all people:', error);
+    return { results: [], count: 0, next: null, previous: null };
+  }
+}
+
+/**
+ * Fetches only the first page of characters (typically 10 results)
+ * Used for progressive loading to show immediate results while loading the rest
+ * @param {string} search - Optional search term
+ * @returns {Promise<Object>} First page data with results, count, next, previous
+ */
+export async function getFirstPage(search = '') {
+  try {
+    const params = new URLSearchParams();
+    if (search) params.append('search', search);
+    
+    const url = `${SWAPI_BASE}/people/${params.toString() ? '?' + params.toString() : ''}`;
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching first page:', error);
     return { results: [], count: 0, next: null, previous: null };
   }
 }

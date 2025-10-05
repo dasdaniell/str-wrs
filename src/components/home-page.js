@@ -1,20 +1,24 @@
 import { LitElement, html, css } from 'lit';
-import { getAllPeople } from '../services/api.js';
+import { getFirstPage, getAllPeople } from '../services/api.js';
 
 export class HomePage extends LitElement {
   static properties = {
     characters: { type: Array },
     loading: { type: Boolean },
+    loadingMore: { type: Boolean },
     searchTerm: { type: String },
-    selectedCharacterId: { type: String }
+    selectedCharacterId: { type: String },
+    totalCount: { type: Number }
   };
 
   constructor() {
     super();
     this.characters = [];
     this.loading = false;
+    this.loadingMore = false;
     this.searchTerm = '';
     this.selectedCharacterId = '';
+    this.totalCount = 0;
   }
 
   static styles = css`
@@ -92,10 +96,25 @@ export class HomePage extends LitElement {
 
   async loadCharacters(search = '') {
     this.loading = true;
+    this.loadingMore = false;
     this.searchTerm = search;
-    const data = await getAllPeople(search);
-    this.characters = data.results || [];
-    this.loading = false;
+    
+    // STEP 1: Load first page quickly for immediate display
+    // This gives users instant feedback and something to interact with
+    const firstPageData = await getFirstPage(search);
+    this.characters = firstPageData.results || [];
+    this.totalCount = firstPageData.count || 0;
+    this.loading = false; // Hide initial skeleton loading, show first 10 characters
+    
+    // STEP 2: Progressive loading - only for initial load (no search)
+    // If there are more characters and no search term, load the rest in background
+    // This prevents blocking the UI while still providing complete data
+    if (!search && firstPageData.next) {
+      this.loadingMore = true;
+      const allData = await getAllPeople(search);
+      this.characters = allData.results || []; // Replace with complete dataset
+      this.loadingMore = false;
+    }
   }
 
   handleSearch(e) {
@@ -130,12 +149,18 @@ export class HomePage extends LitElement {
       <div class="content">
         ${!this.loading && this.characters.length > 0 ? html`
           <div class="character-count">
-            Showing ${this.characters.length} characters
+            ${this.loadingMore ? 
+              html`Showing ${this.characters.length} of ${this.totalCount} characters (loading more...)` :
+              html`Showing ${this.characters.length} characters`
+            }
           </div>
         ` : ''}
         
         <div class="character-list" @character-click=${this.handleCharacterClick}>
-          ${this.loading ? html`<div class="loading">Loading all characters...</div>` : ''}
+          ${this.loading ? html`
+            <!-- Show skeleton cards while loading first page -->
+            ${Array.from({length: 18}, () => html`<skeleton-card></skeleton-card>`)}
+          ` : ''}
           ${!this.loading && this.characters.length === 0 ? html`<div class="loading">No characters found</div>` : ''}
           ${this.characters.map(character => html`
             <character-card 
@@ -145,6 +170,10 @@ export class HomePage extends LitElement {
               id=${character.url ? character.url.split('/').slice(-2, -1)[0] : ''}
             ></character-card>
           `)}
+          ${this.loadingMore ? html`
+            <!-- Show skeleton cards for remaining characters while background loading -->
+            ${Array.from({length: Math.max(0, this.totalCount - this.characters.length)}, () => html`<skeleton-card></skeleton-card>`)}
+          ` : ''}
         </div>
       </div>
       

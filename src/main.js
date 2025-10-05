@@ -2,6 +2,7 @@ import './components/home-page.js';
 import './components/character-list.js';
 import './components/character-card.js';
 import './components/character-profile.js';
+import './components/skeleton-card.js';
 
 function renderRoute() {
   const main = document.querySelector('main');
