@@ -51,5 +51,3 @@ function renderRoute() {
 // Set up event listeners for navigation
 window.addEventListener('hashchange', renderRoute); // Handle browser back/forward
 window.addEventListener('DOMContentLoaded', renderRoute); // Handle initial page load
-
-

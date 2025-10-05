@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit';
 
 export class CharacterList extends LitElement {
   static properties = {
-    characters: { type: Array }
+    characters: { type: Array },
   };
 
   constructor() {
@@ -11,10 +11,24 @@ export class CharacterList extends LitElement {
   }
 
   static styles = css`
-    :host { display: block; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
-    .panel { background: var(--panel, #121826); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 16px; }
-    h2 { margin: 0 0 12px; font-size: 18px; }
+    :host {
+      display: block;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .panel {
+      background: var(--panel, #121826);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
   `;
 
   render() {
@@ -22,14 +36,18 @@ export class CharacterList extends LitElement {
       <div class="panel">
         <h2>Characters</h2>
         <div class="grid">
-          ${this.characters.map(character => html`
-            <character-card 
-              name=${character.name || ''}
-              gender=${character.gender || ''}
-              birthYear=${character.birth_year || ''}
-              id=${character.url ? character.url.split('/').slice(-2, -1)[0] : ''}
-            ></character-card>
-          `)}
+          ${this.characters.map(
+            character => html`
+              <character-card
+                name=${character.name || ''}
+                gender=${character.gender || ''}
+                birthYear=${character.birth_year || ''}
+                id=${character.url
+                  ? character.url.split('/').slice(-2, -1)[0]
+                  : ''}
+              ></character-card>
+            `
+          )}
         </div>
       </div>
     `;
@@ -37,5 +55,3 @@ export class CharacterList extends LitElement {
 }
 
 customElements.define('character-list', CharacterList);
-
-
