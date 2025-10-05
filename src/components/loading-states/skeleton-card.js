@@ -1,5 +1,18 @@
 import { LitElement, html, css } from 'lit';
 
+/**
+ * SkeletonCard Component - Loading placeholder for character cards
+ * 
+ * Features:
+ * - Mimics the exact layout of CharacterCard
+ * - Animated shimmer effect for loading indication
+ * - Same dimensions and spacing as real cards
+ * - Smooth pulse animation for breathing effect
+ * 
+ * Used during:
+ * - Initial page load (18 skeleton cards)
+ * - Background loading (remaining character count)
+ */
 export class SkeletonCard extends LitElement {
   static styles = css`
     :host { display: block; }

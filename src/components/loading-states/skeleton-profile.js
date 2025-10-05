@@ -1,5 +1,18 @@
 import { LitElement, html, css } from 'lit';
 
+/**
+ * SkeletonProfile Component - Loading placeholder for character profile popup
+ * 
+ * Features:
+ * - Mimics the exact layout of CharacterProfile popup
+ * - Animated shimmer effect for loading indication
+ * - Same dimensions as real profile popup
+ * - Prevents layout shift during loading
+ * 
+ * Used during:
+ * - Character profile popup loading
+ * - Maintains popup size while data loads
+ */
 export class SkeletonProfile extends LitElement {
   static styles = css`
     :host { 

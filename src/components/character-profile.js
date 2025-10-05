@@ -1,16 +1,34 @@
 import { LitElement, html, css } from 'lit';
 import { getPerson } from '../services/api.js';
 
+/**
+ * CharacterProfile Component - Modal popup for character details
+ * 
+ * Features:
+ * - Full-screen overlay with backdrop blur
+ * - Centered popup with character details
+ * - Skeleton loading while fetching data
+ * - Click outside or close button to dismiss
+ * - Smooth animations for open/close
+ * 
+ * Props:
+ * - person-id: Character ID to fetch details for
+ * 
+ * Events:
+ * - profile-close: Dispatched when popup is closed
+ */
 export class CharacterProfile extends LitElement {
+  // Define reactive properties for Lit
   static properties = {
-    personId: { type: String, attribute: 'person-id' },
-    character: { type: Object },
-    loading: { type: Boolean },
-    visible: { type: Boolean }
+    personId: { type: String, attribute: 'person-id' }, // Character ID from URL
+    character: { type: Object },                        // Character data from API
+    loading: { type: Boolean },                         // Loading state for skeleton
+    visible: { type: Boolean }                          // Popup visibility state
   };
 
   constructor() {
     super();
+    // Initialize properties
     this.character = null;
     this.loading = false;
     this.visible = false;
@@ -131,6 +149,10 @@ export class CharacterProfile extends LitElement {
     }
   `;
 
+  /**
+   * Called when component is added to DOM
+   * Loads character data if personId is available
+   */
   async connectedCallback() {
     super.connectedCallback();
     if (this.personId) {
@@ -138,25 +160,39 @@ export class CharacterProfile extends LitElement {
     }
   }
 
+  /**
+   * Called when component properties change
+   * Reloads character data if personId changes
+   * @param {Map} changedProperties - Map of changed properties
+   */
   async updated(changedProperties) {
     if (changedProperties.has('personId') && this.personId) {
       await this.loadCharacter();
     }
   }
 
+  /**
+   * Load character data from API
+   * Shows skeleton while loading, then displays character details
+   */
   async loadCharacter() {
     this.loading = true;
     this.character = null;
     this.visible = true;
     
+    // Fetch character data from SWAPI
     const data = await getPerson(this.personId);
     this.character = data;
     this.loading = false;
   }
 
+  /**
+   * Close the popup and notify parent component
+   * Dispatches custom event for parent to handle cleanup
+   */
   closePopup() {
     this.visible = false;
-    // Dispatch custom event to notify parent
+    // Dispatch custom event to notify parent component
     this.dispatchEvent(new CustomEvent('profile-close', {
       bubbles: true,
       detail: { personId: this.personId }
@@ -182,10 +218,6 @@ export class CharacterProfile extends LitElement {
             <div class="detail-item">
               <span class="detail-label">Name</span>
               <span class="detail-value">${this.character.name || 'Unknown'}</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-label">Gender</span>
-              <span class="detail-value">${this.character.gender || 'Unknown'}</span>
             </div>
             <div class="detail-item">
               <span class="detail-label">Birth Year</span>

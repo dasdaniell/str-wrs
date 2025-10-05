@@ -1,11 +1,27 @@
 import { LitElement, html, css } from 'lit';
 
+/**
+ * CharacterCard Component - Individual character display card
+ * 
+ * Features:
+ * - Displays character name, gender, and birth year
+ * - Hover effects with elevation and border highlight
+ * - Click handler to open character profile popup
+ * - Click hint text for better UX
+ * 
+ * Props:
+ * - name: Character's name
+ * - gender: Character's gender
+ * - birthYear: Character's birth year
+ * - id: Character ID for profile navigation
+ */
 export class CharacterCard extends LitElement {
+  // Define reactive properties for Lit
   static properties = {
-    name: { type: String },
-    gender: { type: String },
-    birthYear: { type: String },
-    id: { type: String }
+    name: { type: String },      // Character's name
+    gender: { type: String },    // Character's gender
+    birthYear: { type: String }, // Character's birth year
+    id: { type: String }         // Character ID for profile popup
   };
 
   static styles = css`
@@ -33,8 +49,14 @@ export class CharacterCard extends LitElement {
     }
   `;
 
+  /**
+   * Handle card click events
+   * Dispatches custom event to parent component to open character profile
+   * Only works if character has a valid ID
+   */
   handleClick() {
     if (this.id) {
+      // Dispatch custom event that bubbles up to parent components
       this.dispatchEvent(new CustomEvent('character-click', {
         bubbles: true,
         detail: { characterId: this.id, characterName: this.name }

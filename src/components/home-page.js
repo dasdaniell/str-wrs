@@ -1,18 +1,34 @@
 import { LitElement, html, css } from 'lit';
 import { getFirstPage, getAllPeople } from '../services/api.js';
 
+/**
+ * HomePage Component - Main application view
+ * 
+ * Features:
+ * - Fixed header with search bar
+ * - Scrollable character grid
+ * - Progressive loading (first 10 chars, then all)
+ * - Real-time search functionality
+ * - Character profile popup integration
+ * 
+ * Layout:
+ * - Header: Title + search bar (fixed)
+ * - Content: Character count + character grid (scrollable)
+ */
 export class HomePage extends LitElement {
+  // Define reactive properties for Lit
   static properties = {
-    characters: { type: Array },
-    loading: { type: Boolean },
-    loadingMore: { type: Boolean },
-    searchTerm: { type: String },
-    selectedCharacterId: { type: String },
-    totalCount: { type: Number }
+    characters: { type: Array },        // Array of character objects from API
+    loading: { type: Boolean },         // Initial loading state (shows skeletons)
+    loadingMore: { type: Boolean },     // Background loading state (shows more skeletons)
+    searchTerm: { type: String },       // Current search input value
+    selectedCharacterId: { type: String }, // ID of character to show in popup
+    totalCount: { type: Number }        // Total number of characters available
   };
 
   constructor() {
     super();
+    // Initialize all properties with default values
     this.characters = [];
     this.loading = false;
     this.loadingMore = false;
@@ -89,11 +105,23 @@ export class HomePage extends LitElement {
     }
   `;
 
+  /**
+   * Called when component is added to DOM
+   * Loads initial character data
+   */
   async connectedCallback() {
     super.connectedCallback();
     await this.loadCharacters();
   }
 
+  /**
+   * Progressive loading strategy for optimal user experience
+   * 
+   * Phase 1: Load first page (10 characters) quickly for immediate display
+   * Phase 2: If no search, load remaining characters in background
+   * 
+   * @param {string} search - Search term to filter characters
+   */
   async loadCharacters(search = '') {
     this.loading = true;
     this.loadingMore = false;
@@ -117,16 +145,30 @@ export class HomePage extends LitElement {
     }
   }
 
+  /**
+   * Handle search input changes
+   * Triggers new search with debounced input
+   * @param {Event} e - Input event from search bar
+   */
   handleSearch(e) {
     const searchTerm = e.target.value;
     this.loadCharacters(searchTerm);
   }
 
+  /**
+   * Handle character card clicks
+   * Opens character profile popup
+   * @param {CustomEvent} e - Character click event with characterId
+   */
   handleCharacterClick(e) {
     const { characterId } = e.detail;
     this.selectedCharacterId = characterId;
   }
 
+  /**
+   * Handle character profile popup close
+   * Clears selected character to hide popup
+   */
   handleProfileClose() {
     this.selectedCharacterId = '';
   }

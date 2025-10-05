@@ -26,12 +26,15 @@ The `start` script runs a simple static server on port 5173.
   src/
     main.js             # simple hash router
     services/
-      api.js            # SWAPI calls (stubbed for now)
+      api.js            # SWAPI calls
     components/
       home-page.js
       character-card.js
       character-list.js
       character-profile.js
+      loading-states/
+        skeleton-card.js
+        skeleton-profile.js
 ```
 
 ## Notes
