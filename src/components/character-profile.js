@@ -169,14 +169,15 @@ export class CharacterProfile extends LitElement {
     return html`
       <div class="overlay ${this.visible ? 'visible' : ''}" @click=${this.closePopup}></div>
       <div class="popup ${this.visible ? 'visible' : ''}">
-        <div class="header">
-          <h1 class="name">${this.character?.name || 'Loading...'}</h1>
-          <button class="close-btn" @click=${this.closePopup}>×</button>
-        </div>
-        
         ${this.loading ? html`
-          <div class="loading">Loading character details...</div>
+          <!-- Show skeleton profile while loading to maintain size -->
+          <skeleton-profile></skeleton-profile>
         ` : this.character ? html`
+          <div class="header">
+            <h1 class="name">${this.character.name || 'Unknown'}</h1>
+            <button class="close-btn" @click=${this.closePopup}>×</button>
+          </div>
+          
           <div class="details">
             <div class="detail-item">
               <span class="detail-label">Name</span>
@@ -192,6 +193,10 @@ export class CharacterProfile extends LitElement {
             </div>
           </div>
         ` : html`
+          <div class="header">
+            <h1 class="name">Error</h1>
+            <button class="close-btn" @click=${this.closePopup}>×</button>
+          </div>
           <div class="error">Failed to load character details</div>
         `}
       </div>
