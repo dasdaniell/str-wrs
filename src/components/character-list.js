@@ -1,6 +1,15 @@
 import { LitElement, html, css } from 'lit';
 
 export class CharacterList extends LitElement {
+  static properties = {
+    characters: { type: Array }
+  };
+
+  constructor() {
+    super();
+    this.characters = [];
+  }
+
   static styles = css`
     :host { display: block; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
@@ -13,10 +22,14 @@ export class CharacterList extends LitElement {
       <div class="panel">
         <h2>Characters</h2>
         <div class="grid">
-          <!-- Data wiring to come later -->
-          <character-card name="Luke Skywalker" gender="male" birthYear="19BBY"></character-card>
-          <character-card name="Leia Organa" gender="female" birthYear="19BBY"></character-card>
-          <character-card name="Han Solo" gender="male" birthYear="29BBY"></character-card>
+          ${this.characters.map(character => html`
+            <character-card 
+              name=${character.name || ''}
+              gender=${character.gender || ''}
+              birthYear=${character.birth_year || ''}
+              id=${character.url ? character.url.split('/').slice(-2, -1)[0] : ''}
+            ></character-card>
+          `)}
         </div>
       </div>
     `;

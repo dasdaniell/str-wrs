@@ -7,7 +7,12 @@ function renderRoute() {
   const main = document.querySelector('main');
   const hash = window.location.hash || '#/';
 
-  if (!main) return;
+  console.log('renderRoute called', { main, hash });
+
+  if (!main) {
+    console.error('Main element not found!');
+    return;
+  }
 
   if (hash.startsWith('#/characters/')) {
     const id = hash.split('/')[2] || '';
@@ -21,10 +26,12 @@ function renderRoute() {
 
   switch (hash) {
     case '#/characters':
+      console.log('Rendering character-list');
       main.innerHTML = '<character-list></character-list>';
       break;
     case '#/':
     default:
+      console.log('Rendering home-page');
       main.innerHTML = '<home-page></home-page>';
   }
 }
