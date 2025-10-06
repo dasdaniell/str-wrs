@@ -2,39 +2,6 @@
 export const SWAPI_BASE = 'https://swapi.dev/api';
 
 /**
- * Fetches a specific page of people from SWAPI
- * Used for pagination when we need specific page results
- * @param {number} page - Page number to fetch (default: 1)
- * @param {string} search - Optional search term to filter results
- * @returns {Promise<Object>} Page data with results, count, next, previous
- */
-export async function getPeople(page = 1, search = '') {
-  try {
-    // Build query parameters for the API request
-    const params = new URLSearchParams();
-    if (page > 1) params.append('page', page);
-    if (search) params.append('search', search);
-
-    // Construct the full URL with query parameters
-    const url = `${SWAPI_BASE}/people/${params.toString() ? '?' + params.toString() : ''}`;
-    const response = await fetch(url);
-
-    // Check if the request was successful
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    // Parse and return the JSON response
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching people:', error);
-    // Return empty structure on error to prevent app crashes
-    return { results: [], count: 0, next: null, previous: null };
-  }
-}
-
-/**
  * Fetches ALL characters by following pagination links
  * Used for background loading after first page is displayed
  * @param {string} search - Optional search term

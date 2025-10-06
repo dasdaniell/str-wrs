@@ -1,5 +1,8 @@
 import { LitElement, html, css } from 'lit';
 
+
+// TODO: make a base Skeleton component - the other skeletons should use it as a base
+
 /**
  * SkeletonCard Component - Loading placeholder for character cards
  *

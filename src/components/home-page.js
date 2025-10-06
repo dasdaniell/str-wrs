@@ -7,8 +7,8 @@ import { getFirstPage, getAllPeople } from '../services/api.js';
  * Features:
  * - Fixed header with search bar
  * - Scrollable character grid
- * - Progressive loading (first 10 chars, then all)
- * - Real-time search functionality
+ * - Progressive loading (first 10 chars, then the rest)
+ * - Real-time search functionality (filtering)
  * - Character profile popup integration
  *
  * Layout:
