@@ -1,17 +1,16 @@
 # Star Wars Characters Browser
 
-A modern Star Wars character browser built with Vanilla JavaScript and Lit web components, featuring progressive loading, real-time search, and a sleek dark theme.
+A modern Star Wars character browser built with Vanilla JavaScript and Lit web components, featuring progressive loading and real-time search
 
 ## Features
 
 - **Real-time Search** - Instant character search with live filtering
 - **Progressive Loading** - Fast initial load (10 characters) + background loading of remaining data
-- **Modern Dark UI** - Sleek dark theme with smooth animations and hover effects
 - **Responsive Design** - Grid layout that adapts to different screen sizes
 - **Web Components** - Built with Lit for reusable, encapsulated components
 - **Skeleton Loading** - Animated loading states for better UX
 - **Character Profiles** - Modal popups with detailed character information
-- **Error Handling** - Graceful error states with user-friendly messages
+- **Error Handling** - Error states with user-friendly messages
 
 ## Quick Start
 
