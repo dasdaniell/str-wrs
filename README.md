@@ -27,13 +27,16 @@ Then open http://127.0.0.1:5173 in your browser.
 The app handles different states gracefully:
 
 ### Loading State
+
 - Skeleton cards with shimmer animation during data fetch
 - Progressive loading: shows first 10 characters immediately, loads rest in background
 
 ### No Data State
+
 - Clean empty state when no characters match search criteria
 
-### Error State  
+### Error State
+
 - User-friendly error handling when SWAPI is unavailable
 
 ## Architecture
@@ -56,12 +59,14 @@ The `start` script runs a simple static server on port 5173.
 ## Components
 
 ### Core Components
+
 - **`home-page`** - Main application view with search and character grid
 - **`character-card`** - Individual character display with hover effects
 - **`character-profile`** - Modal popup with detailed character information
 - **`character-list`** - Alternative list view (currently unused)
 
 ### Loading States
+
 - **`skeleton-card`** - Animated loading placeholder for character cards
 - **`skeleton-profile`** - Loading placeholder for character profile modal
 
@@ -103,21 +108,25 @@ This project uses [Prettier](https://prettier.io/) for consistent code formattin
 ## Technical Details
 
 ### Progressive Loading Strategy
+
 1. **Phase 1**: Load first page (10 characters) for immediate display
 2. **Phase 2**: Background load remaining characters if no search is active
 3. **Search**: Only loads first page results for instant feedback
 
 ### API Integration
+
 - **Base URL**: `https://swapi.dev/api`
 - **Endpoints**: `/people/` with pagination and search support
 - **Error Handling**: Graceful fallbacks with user-friendly messages
 
 ### Styling
+
 - **CSS Variables**: Centralized theming with `--bg`, `--panel`, `--text`, `--muted`, `--accent`
 - **Responsive Grid**: `repeat(auto-fill, minmax(280px, 1fr))` for character cards
 - **Animations**: Smooth transitions and hover effects throughout
 
 ### Mock Methods (for Demo)
+
 - `loadCharactersNoDataMock()` - Demonstrates empty state
 - `loadCharactersServerErrorMock()` - Demonstrates error state
 
@@ -134,17 +143,21 @@ All character data courtesy of [SWAPI - The Star Wars API](https://swapi.dev/).
 ## Screenshots
 
 ### Main Application
+
 ![Main Application](./assets/screenshots/main-application.png)
-*Character grid with search functionality and character details*
+_Character grid with search functionality and character details_
 
 ### Loading State
+
 ![Loading State](./assets/screenshots/loading-state.png)
-*Skeleton cards with shimmer animation during initial data fetch*
+_Skeleton cards with shimmer animation during initial data fetch_
 
 ### No Data State
+
 ![No Data State](./assets/screenshots/no-data-state.png)
-*Clean empty state when no characters match search criteria*
+_Clean empty state when no characters match search criteria_
 
 ### Error State
+
 ![Error State](./assets/screenshots/error-state.png)
-*User-friendly error handling when SWAPI is unavailable*
+_User-friendly error handling when SWAPI is unavailable_

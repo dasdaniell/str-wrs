@@ -16,9 +16,9 @@ import { LitElement, html, css } from 'lit';
 export class SkeletonProfile extends LitElement {
   // Define reactive properties for Lit
   static properties = {
-    visible: { 
+    visible: {
       type: Boolean,
-      reflect: true
+      reflect: true,
     },
   };
 

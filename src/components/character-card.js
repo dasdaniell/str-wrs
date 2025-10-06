@@ -19,7 +19,7 @@ export class CharacterCard extends LitElement {
   // Event type constants
   static get events() {
     return {
-      CHARACTER_CLICK: 'characterClick'
+      CHARACTER_CLICK: 'characterClick',
     };
   }
 
@@ -108,9 +108,9 @@ export class CharacterCard extends LitElement {
           <div class="meta">Birth year: ${this.birthYear || '—'}</div>
           <div class="click-hint">View profile</div>
         </div>
-        <img 
-          src="/assets/icons/avatar-1.png" 
-          alt="Character avatar" 
+        <img
+          src="/assets/icons/avatar-1.png"
+          alt="Character avatar"
           class="avatar"
         />
       </div>

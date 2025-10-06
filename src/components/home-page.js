@@ -20,42 +20,42 @@ export class HomePage extends LitElement {
   static get events() {
     return {
       CHARACTER_CLICK: 'characterClick',
-      PROFILE_CLOSE: 'profileClose'
+      PROFILE_CLOSE: 'profileClose',
     };
   }
 
   // Define reactive properties for Lit
   static properties = {
-    characters: { 
+    characters: {
       type: Array,
       attribute: false,
       hasChanged: (newVal, oldVal) => {
         return JSON.stringify(newVal) !== JSON.stringify(oldVal);
-      }
+      },
     }, // Array of character objects from API
-    loading: { 
+    loading: {
       type: Boolean,
-      reflect: true
+      reflect: true,
     }, // Initial loading state (shows skeletons)
-    loadingMore: { 
+    loadingMore: {
       type: Boolean,
-      reflect: true
+      reflect: true,
     }, // Background loading state (shows more skeletons)
-    searchTerm: { 
+    searchTerm: {
       type: String,
-      reflect: true
+      reflect: true,
     }, // Current search input value
-    selectedCharacterId: { 
+    selectedCharacterId: {
       type: String,
-      attribute: 'selectedCharacterId'
+      attribute: 'selectedCharacterId',
     }, // ID of character to show in popup
-    totalCount: { 
+    totalCount: {
       type: Number,
-      attribute: false
+      attribute: false,
     }, // Total number of characters available
-    error: { 
+    error: {
       type: String,
-      reflect: true
+      reflect: true,
     }, // Error message if API fails
   };
 
@@ -69,7 +69,7 @@ export class HomePage extends LitElement {
     this.selectedCharacterId = '';
     this.totalCount = 0;
     this.error = '';
-    
+
     // Search debouncing
     this.searchTimeout = null;
   }
@@ -292,10 +292,10 @@ export class HomePage extends LitElement {
     this.loadingMore = false;
     this.searchTerm = search;
     this.error = '';
-    
+
     // Simulate loading delay
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     this.characters = [];
     this.totalCount = 0;
     this.loading = false;
@@ -310,11 +310,11 @@ export class HomePage extends LitElement {
     this.loadingMore = false;
     this.searchTerm = search;
     this.error = '';
-    
+
     try {
       // Simulate loading delay
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       // Simulate server error
       throw new Error('Mock server error for demonstration');
     } catch (error) {
@@ -423,41 +423,41 @@ export class HomePage extends LitElement {
                     class="character-list"
                     @characterClick=${this.handleCharacterClick}
                   >
-                  ${this.loading
-                    ? html`
-                        <!-- Show skeleton cards while loading first page -->
-                        ${Array.from(
-                          { length: 18 },
-                          () => html`<skeleton-card></skeleton-card>`
-                        )}
+                    ${this.loading
+                      ? html`
+                          <!-- Show skeleton cards while loading first page -->
+                          ${Array.from(
+                            { length: 18 },
+                            () => html`<skeleton-card></skeleton-card>`
+                          )}
+                        `
+                      : ''}
+                    ${this.characters.map(
+                      character => html`
+                        <character-card
+                          name=${character.name || ''}
+                          gender=${character.gender || ''}
+                          birthYear=${character.birth_year || ''}
+                          id=${character.url
+                            ? character.url.split('/').slice(-2, -1)[0]
+                            : ''}
+                        ></character-card>
                       `
-                    : ''}
-                  ${this.characters.map(
-                    character => html`
-                      <character-card
-                        name=${character.name || ''}
-                        gender=${character.gender || ''}
-                        birthYear=${character.birth_year || ''}
-                        id=${character.url
-                          ? character.url.split('/').slice(-2, -1)[0]
-                          : ''}
-                      ></character-card>
-                    `
-                  )}
-                  ${this.loadingMore
-                    ? html`
-                        <!-- Show skeleton cards for remaining characters while background loading -->
-                        ${Array.from(
-                          {
-                            length: Math.max(
-                              0,
-                              this.totalCount - this.characters.length
-                            ),
-                          },
-                          () => html`<skeleton-card></skeleton-card>`
-                        )}
-                      `
-                    : ''}
+                    )}
+                    ${this.loadingMore
+                      ? html`
+                          <!-- Show skeleton cards for remaining characters while background loading -->
+                          ${Array.from(
+                            {
+                              length: Math.max(
+                                0,
+                                this.totalCount - this.characters.length
+                              ),
+                            },
+                            () => html`<skeleton-card></skeleton-card>`
+                          )}
+                        `
+                      : ''}
                   </div>
                 </div>
               `}

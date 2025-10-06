@@ -4,17 +4,17 @@ export class CharacterList extends LitElement {
   // Event type constants
   static get events() {
     return {
-      CHARACTER_CLICK: 'characterClick'
+      CHARACTER_CLICK: 'characterClick',
     };
   }
 
   static properties = {
-    characters: { 
+    characters: {
       type: Array,
       attribute: false,
       hasChanged: (newVal, oldVal) => {
         return JSON.stringify(newVal) !== JSON.stringify(oldVal);
-      }
+      },
     },
   };
 

@@ -21,30 +21,30 @@ export class CharacterProfile extends LitElement {
   // Event type constants
   static get events() {
     return {
-      PROFILE_CLOSE: 'profileClose'
+      PROFILE_CLOSE: 'profileClose',
     };
   }
 
   // Define reactive properties for Lit
   static properties = {
-    personId: { 
-      type: String, 
-      attribute: 'person-id'
+    personId: {
+      type: String,
+      attribute: 'person-id',
     }, // Character ID from URL
-    character: { 
+    character: {
       type: Object,
       attribute: false,
       hasChanged: (newVal, oldVal) => {
         return JSON.stringify(newVal) !== JSON.stringify(oldVal);
-      }
+      },
     }, // Character data from API
-    loading: { 
+    loading: {
       type: Boolean,
-      reflect: true
+      reflect: true,
     }, // Loading state for skeleton
-    visible: { 
+    visible: {
       type: Boolean,
-      reflect: true
+      reflect: true,
     }, // Popup visibility state
   };
 
@@ -258,9 +258,9 @@ export class CharacterProfile extends LitElement {
             ? html`
                 <div class="header">
                   <div class="header-content">
-                    <img 
-                      src="/assets/icons/avatar-1.png" 
-                      alt="Character avatar" 
+                    <img
+                      src="/assets/icons/avatar-1.png"
+                      alt="Character avatar"
                       class="profile-avatar"
                     />
                     <h1 class="name">${this.character.name || 'Unknown'}</h1>
