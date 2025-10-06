@@ -114,7 +114,7 @@ This project uses [Prettier](https://prettier.io/) for consistent code formattin
 
 - **Base URL**: `https://swapi.dev/api`
 - **Endpoints**: `/people/` with pagination and search support
-- **Error Handling**: Graceful fallbacks with user-friendly messages
+- **Error Handling**: Fallbacks with user-friendly messages
 
 ### Styling
 
