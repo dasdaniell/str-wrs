@@ -23,8 +23,6 @@ Then open http://127.0.0.1:5173 in your browser.
 
 ## Application States
 
-The app handles different states gracefully:
-
 ### Loading State
 
 - Skeleton cards with shimmer animation during data fetch
@@ -137,7 +135,7 @@ This project uses [Prettier](https://prettier.io/) for consistent code formattin
 
 ## Data Source
 
-All character data courtesy of [SWAPI - The Star Wars API](https://swapi.dev/).
+All character data from [SWAPI - The Star Wars API](https://swapi.dev/).
 
 ## Screenshots
 
