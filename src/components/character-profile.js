@@ -29,8 +29,7 @@ export class CharacterProfile extends LitElement {
   static properties = {
     personId: { 
       type: String, 
-      attribute: 'person-id',
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
+      attribute: 'person-id'
     }, // Character ID from URL
     character: { 
       type: Object,
@@ -41,13 +40,11 @@ export class CharacterProfile extends LitElement {
     }, // Character data from API
     loading: { 
       type: Boolean,
-      reflect: true,
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
+      reflect: true
     }, // Loading state for skeleton
     visible: { 
       type: Boolean,
-      reflect: true,
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
+      reflect: true
     }, // Popup visibility state
   };
 

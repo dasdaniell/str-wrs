@@ -19,10 +19,7 @@ import { LitElement, html, css } from 'lit';
 export class SkeletonCard extends LitElement {
   // Define reactive properties for Lit
   static properties = {
-    count: { 
-      type: Number,
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
-    },
+    count: { type: Number },
   };
 
   constructor() {

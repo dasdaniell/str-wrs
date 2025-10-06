@@ -18,8 +18,7 @@ export class SkeletonProfile extends LitElement {
   static properties = {
     visible: { 
       type: Boolean,
-      reflect: true,
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
+      reflect: true
     },
   };
 

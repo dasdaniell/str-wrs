@@ -25,22 +25,10 @@ export class CharacterCard extends LitElement {
 
   // Define reactive properties for Lit
   static properties = {
-    name: { 
-      type: String,
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
-    }, // Character's name
-    gender: { 
-      type: String,
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
-    }, // Character's gender
-    birthYear: { 
-      type: String,
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
-    }, // Character's birth year
-    id: { 
-      type: String,
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
-    }, // Character ID for profile popup
+    name: { type: String }, // Character's name
+    gender: { type: String }, // Character's gender
+    birthYear: { type: String }, // Character's birth year
+    id: { type: String }, // Character ID for profile popup
   };
 
   static styles = css`

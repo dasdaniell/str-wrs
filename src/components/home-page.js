@@ -35,33 +35,27 @@ export class HomePage extends LitElement {
     }, // Array of character objects from API
     loading: { 
       type: Boolean,
-      reflect: true,
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
+      reflect: true
     }, // Initial loading state (shows skeletons)
     loadingMore: { 
       type: Boolean,
-      reflect: true,
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
+      reflect: true
     }, // Background loading state (shows more skeletons)
     searchTerm: { 
       type: String,
-      reflect: true,
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
+      reflect: true
     }, // Current search input value
     selectedCharacterId: { 
       type: String,
-      attribute: 'selectedCharacterId',
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
+      attribute: 'selectedCharacterId'
     }, // ID of character to show in popup
     totalCount: { 
       type: Number,
-      attribute: false,
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
+      attribute: false
     }, // Total number of characters available
     error: { 
       type: String,
-      reflect: true,
-      hasChanged: (newVal, oldVal) => newVal !== oldVal
+      reflect: true
     }, // Error message if API fails
   };
 
@@ -75,6 +69,9 @@ export class HomePage extends LitElement {
     this.selectedCharacterId = '';
     this.totalCount = 0;
     this.error = '';
+    
+    // Search debouncing
+    this.searchTimeout = null;
   }
 
   static styles = css`
@@ -233,6 +230,19 @@ export class HomePage extends LitElement {
   }
 
   /**
+   * Called when component is removed from DOM
+   * Clean up any timers or resources
+   */
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    // Clear search timeout to prevent memory leaks
+    if (this.searchTimeout) {
+      clearTimeout(this.searchTimeout);
+      this.searchTimeout = null;
+    }
+  }
+
+  /**
    * Progressive loading strategy for optimal user experience
    *
    * Phase 1: Load first page (10 characters) quickly for immediate display
@@ -318,13 +328,25 @@ export class HomePage extends LitElement {
   }
 
   /**
+   * Debounced search to prevent excessive API calls
+   * @param {string} searchTerm - Search term to debounce
+   */
+  debounceSearch(searchTerm) {
+    clearTimeout(this.searchTimeout);
+    this.searchTimeout = setTimeout(() => {
+      this.loadCharacters(searchTerm);
+    }, 600); // 600ms delay
+  }
+
+  /**
    * Handle search input changes
-   * Triggers new search with debounced input
+   * Triggers debounced search to prevent excessive API calls
    * @param {Event} e - Input event from search bar
    */
   handleSearch(e) {
     const searchTerm = e.target.value;
-    this.loadCharacters(searchTerm);
+    this.searchTerm = searchTerm; // Update UI immediately
+    this.debounceSearch(searchTerm);
   }
 
   /**
