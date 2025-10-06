@@ -2,18 +2,16 @@
 
 A modern Star Wars character browser built with Vanilla JavaScript and Lit web components, featuring progressive loading, real-time search, and a sleek dark theme.
 
-![Star Wars Logo](./assets/icons/sw-logo.png)
-
 ## Features
 
-- 🔍 **Real-time Search** - Instant character search with live filtering
-- ⚡ **Progressive Loading** - Fast initial load (10 characters) + background loading of remaining data
-- 🎨 **Modern Dark UI** - Sleek dark theme with smooth animations and hover effects
-- 📱 **Responsive Design** - Grid layout that adapts to different screen sizes
-- 🚀 **Web Components** - Built with Lit for reusable, encapsulated components
-- 💫 **Skeleton Loading** - Animated loading states for better UX
-- 🎭 **Character Profiles** - Modal popups with detailed character information
-- 🔄 **Error Handling** - Graceful error states with user-friendly messages
+- **Real-time Search** - Instant character search with live filtering
+- **Progressive Loading** - Fast initial load (10 characters) + background loading of remaining data
+- **Modern Dark UI** - Sleek dark theme with smooth animations and hover effects
+- **Responsive Design** - Grid layout that adapts to different screen sizes
+- **Web Components** - Built with Lit for reusable, encapsulated components
+- **Skeleton Loading** - Animated loading states for better UX
+- **Character Profiles** - Modal popups with detailed character information
+- **Error Handling** - Graceful error states with user-friendly messages
 
 ## Quick Start
 
@@ -33,11 +31,9 @@ The app handles different states gracefully:
 - Progressive loading: shows first 10 characters immediately, loads rest in background
 
 ### No Data State
-![No Data State](./assets/icons/no-data.png)
 - Clean empty state when no characters match search criteria
 
 ### Error State  
-![Server Error State](./assets/icons/server-down.png)
 - User-friendly error handling when SWAPI is unavailable
 
 ## Architecture
@@ -138,17 +134,17 @@ All character data courtesy of [SWAPI - The Star Wars API](https://swapi.dev/).
 ## Screenshots
 
 ### Loading State
-![Loading State](./screenshots/loading-state.png)
+![Loading State](./assets/screenshots/loading-state.png)
 *Skeleton cards with shimmer animation during initial data fetch*
 
 ### No Data State
-![No Data State](./screenshots/no-data-state.png)
+![No Data State](./assets/screenshots/no-data-state.png)
 *Clean empty state when no characters match search criteria*
 
 ### Error State
-![Error State](./screenshots/error-state.png)
+![Error State](./assets/screenshots/error-state.png)
 *User-friendly error handling when SWAPI is unavailable*
 
 ### Main Application
-![Main Application](./screenshots/main-application.png)
+![Main Application](./assets/screenshots/main-application.png)
 *Character grid with search functionality and character details*
