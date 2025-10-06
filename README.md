@@ -133,6 +133,10 @@ All character data courtesy of [SWAPI - The Star Wars API](https://swapi.dev/).
 
 ## Screenshots
 
+### Main Application
+![Main Application](./assets/screenshots/main-application.png)
+*Character grid with search functionality and character details*
+
 ### Loading State
 ![Loading State](./assets/screenshots/loading-state.png)
 *Skeleton cards with shimmer animation during initial data fetch*
@@ -144,7 +148,3 @@ All character data courtesy of [SWAPI - The Star Wars API](https://swapi.dev/).
 ### Error State
 ![Error State](./assets/screenshots/error-state.png)
 *User-friendly error handling when SWAPI is unavailable*
-
-### Main Application
-![Main Application](./assets/screenshots/main-application.png)
-*Character grid with search functionality and character details*
