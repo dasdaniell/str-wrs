@@ -53,11 +53,13 @@ export class HomePage extends LitElement {
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     .title {
-      color: var(--text, #e8eefc);
       text-align: center;
       margin-bottom: 20px;
-      font-size: 28px;
-      font-weight: 600;
+    }
+    .title img {
+      height: 70px;
+      width: auto;
+      filter: invert(1) sepia(1) saturate(0) hue-rotate(0deg) brightness(1);
     }
     .search-container {
       display: flex;
@@ -262,7 +264,9 @@ export class HomePage extends LitElement {
   render() {
     return html`
       <div class="header">
-        <h1 class="title">Star Wars Characters</h1>
+        <div class="title">
+          <img src="/assets/icons/sw-logo.png" alt="Star Wars" />
+        </div>
         <div class="search-container">
           <input
             class="search-bar"
