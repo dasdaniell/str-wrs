@@ -190,6 +190,8 @@ export class HomePage extends LitElement {
   async connectedCallback() {
     super.connectedCallback();
     await this.loadCharacters();
+    // await this.loadCharactersNoDataMock();
+    // await this.loadCharactersServerErrorMock();
   }
 
   /**
@@ -230,6 +232,50 @@ export class HomePage extends LitElement {
       this.characters = [];
       this.totalCount = 0;
       this.error = 'The servers are down at the moment, please try again later';
+    }
+  }
+
+  /**
+   * Mock method to demonstrate no-data state
+   * Returns empty results to show no-data.png
+   */
+  async loadCharactersNoDataMock(search = '') {
+    this.loading = true;
+    this.loadingMore = false;
+    this.searchTerm = search;
+    this.error = '';
+    
+    // Simulate loading delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    this.characters = [];
+    this.totalCount = 0;
+    this.loading = false;
+  }
+
+  /**
+   * Mock method to demonstrate server error state
+   * Throws error to show server-down.png
+   */
+  async loadCharactersServerErrorMock(search = '') {
+    this.loading = true;
+    this.loadingMore = false;
+    this.searchTerm = search;
+    this.error = '';
+    
+    try {
+      // Simulate loading delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Simulate server error
+      throw new Error('Mock server error for demonstration');
+    } catch (error) {
+      console.error('Error loading characters:', error);
+      this.loading = false;
+      this.loadingMore = false;
+      this.characters = [];
+      this.totalCount = 0;
+      this.error = 'error'; // Just set any truthy value to trigger error display
     }
   }
 
