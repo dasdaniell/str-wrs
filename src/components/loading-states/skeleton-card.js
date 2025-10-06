@@ -17,6 +17,19 @@ import { LitElement, html, css } from 'lit';
  * - Background loading (remaining character count)
  */
 export class SkeletonCard extends LitElement {
+  // Define reactive properties for Lit
+  static properties = {
+    count: { 
+      type: Number,
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    },
+  };
+
+  constructor() {
+    super();
+    this.count = 1; // Default to 1 skeleton card
+  }
+
   static styles = css`
     :host {
       display: block;

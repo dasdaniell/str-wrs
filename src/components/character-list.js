@@ -1,8 +1,21 @@
 import { LitElement, html, css } from 'lit';
 
 export class CharacterList extends LitElement {
+  // Event type constants
+  static get events() {
+    return {
+      CHARACTER_CLICK: 'characterClick'
+    };
+  }
+
   static properties = {
-    characters: { type: Array },
+    characters: { 
+      type: Array,
+      attribute: false,
+      hasChanged: (newVal, oldVal) => {
+        return JSON.stringify(newVal) !== JSON.stringify(oldVal);
+      }
+    },
   };
 
   constructor() {

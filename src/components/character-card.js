@@ -16,12 +16,31 @@ import { LitElement, html, css } from 'lit';
  * - id: Character ID for profile navigation
  */
 export class CharacterCard extends LitElement {
+  // Event type constants
+  static get events() {
+    return {
+      CHARACTER_CLICK: 'characterClick'
+    };
+  }
+
   // Define reactive properties for Lit
   static properties = {
-    name: { type: String }, // Character's name
-    gender: { type: String }, // Character's gender
-    birthYear: { type: String }, // Character's birth year
-    id: { type: String }, // Character ID for profile popup
+    name: { 
+      type: String,
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    }, // Character's name
+    gender: { 
+      type: String,
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    }, // Character's gender
+    birthYear: { 
+      type: String,
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    }, // Character's birth year
+    id: { 
+      type: String,
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    }, // Character ID for profile popup
   };
 
   static styles = css`
@@ -83,8 +102,9 @@ export class CharacterCard extends LitElement {
     if (this.id) {
       // Dispatch custom event that bubbles up to parent components
       this.dispatchEvent(
-        new CustomEvent('character-click', {
+        new CustomEvent(this.constructor.events.CHARACTER_CLICK, {
           bubbles: true,
+          composed: true,
           detail: { characterId: this.id, characterName: this.name },
         })
       );

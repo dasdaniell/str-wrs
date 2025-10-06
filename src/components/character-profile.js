@@ -15,15 +15,40 @@ import { getPerson } from '../services/api.js';
  * - person-id: Character ID to fetch details for
  *
  * Events:
- * - profile-close: Dispatched when popup is closed
+ * - profileClose: Dispatched when popup is closed
  */
 export class CharacterProfile extends LitElement {
+  // Event type constants
+  static get events() {
+    return {
+      PROFILE_CLOSE: 'profileClose'
+    };
+  }
+
   // Define reactive properties for Lit
   static properties = {
-    personId: { type: String, attribute: 'person-id' }, // Character ID from URL
-    character: { type: Object }, // Character data from API
-    loading: { type: Boolean }, // Loading state for skeleton
-    visible: { type: Boolean }, // Popup visibility state
+    personId: { 
+      type: String, 
+      attribute: 'person-id',
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    }, // Character ID from URL
+    character: { 
+      type: Object,
+      attribute: false,
+      hasChanged: (newVal, oldVal) => {
+        return JSON.stringify(newVal) !== JSON.stringify(oldVal);
+      }
+    }, // Character data from API
+    loading: { 
+      type: Boolean,
+      reflect: true,
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    }, // Loading state for skeleton
+    visible: { 
+      type: Boolean,
+      reflect: true,
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    }, // Popup visibility state
   };
 
   constructor() {
@@ -211,7 +236,7 @@ export class CharacterProfile extends LitElement {
     this.visible = false;
     // Dispatch custom event to notify parent component
     this.dispatchEvent(
-      new CustomEvent('profile-close', {
+      new CustomEvent(this.constructor.events.PROFILE_CLOSE, {
         bubbles: true,
         detail: { personId: this.personId },
       })

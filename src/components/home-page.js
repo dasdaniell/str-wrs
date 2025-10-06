@@ -16,15 +16,53 @@ import { getFirstPage, getAllPeople } from '../services/api.js';
  * - Content: Character count + character grid (scrollable)
  */
 export class HomePage extends LitElement {
+  // Event type constants
+  static get events() {
+    return {
+      CHARACTER_CLICK: 'characterClick',
+      PROFILE_CLOSE: 'profileClose'
+    };
+  }
+
   // Define reactive properties for Lit
   static properties = {
-    characters: { type: Array }, // Array of character objects from API
-    loading: { type: Boolean }, // Initial loading state (shows skeletons)
-    loadingMore: { type: Boolean }, // Background loading state (shows more skeletons)
-    searchTerm: { type: String }, // Current search input value
-    selectedCharacterId: { type: String }, // ID of character to show in popup
-    totalCount: { type: Number }, // Total number of characters available
-    error: { type: String }, // Error message if API fails
+    characters: { 
+      type: Array,
+      attribute: false,
+      hasChanged: (newVal, oldVal) => {
+        return JSON.stringify(newVal) !== JSON.stringify(oldVal);
+      }
+    }, // Array of character objects from API
+    loading: { 
+      type: Boolean,
+      reflect: true,
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    }, // Initial loading state (shows skeletons)
+    loadingMore: { 
+      type: Boolean,
+      reflect: true,
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    }, // Background loading state (shows more skeletons)
+    searchTerm: { 
+      type: String,
+      reflect: true,
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    }, // Current search input value
+    selectedCharacterId: { 
+      type: String,
+      attribute: 'selectedCharacterId',
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    }, // ID of character to show in popup
+    totalCount: { 
+      type: Number,
+      attribute: false,
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    }, // Total number of characters available
+    error: { 
+      type: String,
+      reflect: true,
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    }, // Error message if API fails
   };
 
   constructor() {
@@ -361,7 +399,7 @@ export class HomePage extends LitElement {
                 <div class="character-grid">
                   <div
                     class="character-list"
-                    @character-click=${this.handleCharacterClick}
+                    @characterClick=${this.handleCharacterClick}
                   >
                   ${this.loading
                     ? html`
@@ -407,7 +445,7 @@ export class HomePage extends LitElement {
         ? html`
             <character-profile
               person-id=${this.selectedCharacterId}
-              @profile-close=${this.handleProfileClose}
+              @profileClose=${this.handleProfileClose}
             ></character-profile>
           `
         : ''}

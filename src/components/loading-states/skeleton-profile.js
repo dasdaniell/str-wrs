@@ -14,6 +14,20 @@ import { LitElement, html, css } from 'lit';
  * - Maintains popup size while data loads
  */
 export class SkeletonProfile extends LitElement {
+  // Define reactive properties for Lit
+  static properties = {
+    visible: { 
+      type: Boolean,
+      reflect: true,
+      hasChanged: (newVal, oldVal) => newVal !== oldVal
+    },
+  };
+
+  constructor() {
+    super();
+    this.visible = false;
+  }
+
   static styles = css`
     :host {
       display: block;
